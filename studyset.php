@@ -1,7 +1,7 @@
 <!doctype html>
 
 <head>
-    <?php include 'theme.php'; ?>
+    <?php include 'Components/theme.php'; ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,7 +15,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
-    <?php include "navbar.php" ?>
+    <?php include "Components/navbar.php" ?>
 
     <main class="container my-4" style="padding-inline: 1rem;">
         <?php
