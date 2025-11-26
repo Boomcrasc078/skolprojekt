@@ -11,6 +11,10 @@
           <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) === 'index.php') ? 'active' : '' ?>"
             aria-current="page" href="index.php">Home</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) === 'studyset.php') ? 'active' : '' ?>"
+            aria-current="page" href="studyset.php">Example Study Set</a>
+        </li>
 
         <!--Theme Dropdown-->
         <li class="nav-item dropdown">
