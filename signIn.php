@@ -29,15 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <main>
         <form class="container p-5 position-fixed top-50 start-50 translate-middle z-n1" method="post"
-            action="<?php $_SERVER['PHP_SELF']; ?>">
+            action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <h1 class="mb-3">Sign In</h1>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Username</label>
-                <input type="text" class="form-control" id="inputUsername" name="username">
+                <input type="text" class="form-control" id="inputUsername" name="username" required>
             </div>
             <div class="mb-5">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword" name="password">
+                <input type="password" class="form-control" id="inputPassword" name="password" required>
             </div>
             <div id="error" class="form-text">
                 <?php

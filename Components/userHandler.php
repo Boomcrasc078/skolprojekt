@@ -4,7 +4,8 @@ $user = getUser();
 
 
 
-function getUser(){
+function getUser()
+{
     if (!isset($_SESSION['userID'])) {
         return;
     }
@@ -20,8 +21,9 @@ function getUser(){
     return $user;
 }
 
-function requireUser(){
-    if(!isset($_SESSION['userID'])){
+function requireUser()
+{
+    if (!isset($_SESSION['userID'])) {
         header("Location: signIn.php");
         exit();
     }
@@ -139,14 +141,13 @@ function signIn($username, $password)
 {
     try {
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $foundUser = find("users", "username", $username);
 
         if ($foundUser == null) {
             return "This user does not exist.";
         }
 
-        if ($foundUser['password'] != $hashedPassword) {
+        if (!password_verify($password, $foundUser['password'])) {
             return "Password is incorrect.";
         }
 
@@ -158,5 +159,13 @@ function signIn($username, $password)
     } catch (Exception $exception) {
         return "Error: " . $exception->getMessage();
     }
+}
+
+function validate($input)
+{
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
 }
 ?>
