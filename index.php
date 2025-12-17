@@ -1,3 +1,7 @@
+<?php
+require 'Components/userHandler.php';
+?>
+
 <!doctype html>
 
 <head>
@@ -8,7 +12,7 @@
     <title>QUIS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    </head>
+</head>
 
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -18,7 +22,13 @@
     <?php include "Components/navbar.php" ?>
 
     <main>
-        <?php include 'Components/startPage.php'; ?>
+        <?php
+        if (isset($_SESSION['userID'])) {
+            include 'Components/homePage.php';
+        } else {
+            include 'Components/startPage.php';
+        }
+        ?>
     </main>
 
 </body>

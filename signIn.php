@@ -1,11 +1,16 @@
 <?php
-include 'Components/userHandler.php';
+
+require 'Components/userHandler.php';
+
+$_SESSION['userID'] = null;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $enteredUsername = $_POST['username'];
-    $enteredPassword = $_POST['password'];
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $enteredUsername = $_POST['username'];
+        $enteredPassword = $_POST['password'];
 
-    $error = signIn($enteredUsername, $enteredPassword);
+        $error = signIn($enteredUsername, $enteredPassword);
+    }
 }
 ?>
 
@@ -28,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <?php include "Components/navbar.php" ?>
 
     <main>
-        <form class="container p-5 position-fixed top-50 start-50 translate-middle z-n1" method="post"
+        <form class="container p-5 position-absolute top-50 start-50 translate-middle z-n1 border rounded rounded-5 shadow bg-body-tertiary" method="post"
             action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <h1 class="mb-3">Sign In</h1>
             <div class="mb-3">
