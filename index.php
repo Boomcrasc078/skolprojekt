@@ -18,7 +18,7 @@
     <?php include "Components/navbar.php" ?>
 
     <main>
-       
+        <?php include 'Components/startPage.php'; ?>
     </main>
 
 </body>
