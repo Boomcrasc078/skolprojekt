@@ -7,7 +7,8 @@ function getUser()
         return;
     }
     $userID = $_SESSION['userID'];
-    $foundUser = find("users", "userID", $userID);
+    $foundUsers = find("users", "userID", $userID);
+    $foundUser = $foundUsers->fetch_assoc();
 
     if ($foundUser == null) {
         $_SESSION['userID'] = null;
@@ -58,14 +59,14 @@ function createUser(User $user)
     }
 }
 
-
-
 function signUp($username, $password)
 {
     try {
         $user = new User($username, $password);
+        $foundUsers = find("users", "username", $user->username);
+        $foundUser = $foundUsers->fetch_assoc();
 
-        if (find("users", "username", $user->username)) {
+        if ($foundUser != null & $foundUser != false) {
             return "$username have already been used.";
         }
 
@@ -85,7 +86,8 @@ function signIn($username, $password)
 {
     try {
 
-        $foundUser = find("users", "username", $username);
+        $foundUsers = find("users", "username", $username);
+        $foundUser = $foundUsers->fetch_assoc();
 
         if ($foundUser == null) {
             return "This user does not exist.";

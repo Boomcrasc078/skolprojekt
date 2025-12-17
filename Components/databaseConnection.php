@@ -39,11 +39,10 @@ function find(string $table, string $column, string $data)
         $stmt->execute();
 
         $result = $stmt->get_result();
-        $data = $result ? $result->fetch_assoc() : null;
 
         $stmt->close();
 
-        return $data;
+        return $result;
 
     } catch (Exception $exception) {
         return "Error: " . $exception->getMessage();
