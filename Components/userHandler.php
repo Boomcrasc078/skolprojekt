@@ -20,6 +20,13 @@ function getUser(){
     return $user;
 }
 
+function requireUser(){
+    if(!isset($_SESSION['userID'])){
+        header("Location: signIn.php");
+        exit();
+    }
+}
+
 class User
 {
     public $username;
