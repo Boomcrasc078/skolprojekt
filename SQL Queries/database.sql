@@ -1,0 +1,8 @@
+CREATE DATABASE QUIS;
+
+CREATE TABLE users(
+    userID int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    username varchar(255) NOT NULL,
+    password varchar(255) NOT NULL
+);
