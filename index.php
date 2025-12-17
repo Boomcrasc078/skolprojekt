@@ -1,4 +1,5 @@
 <?php
+require 'Components/databaseConnection.php';
 require 'Components/userHandler.php';
 ?>
 
