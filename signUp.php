@@ -1,3 +1,14 @@
+<?php
+include 'Components/userHandler.php';
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    $enteredUsername = $_POST['username'];
+    $enteredPassword = $_POST['password'];
+
+    $error = signUp($enteredUsername, $enteredPassword);
+}
+?>
+
 <!doctype html>
 
 <head>
@@ -18,7 +29,26 @@
     <?php include "Components/navbar.php" ?>
 
     <main>
-
+        <form class="container p-5 position-fixed top-50 start-50 translate-middle z-n1">
+            <h1 class="mb-3">Sign Up</h1>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Username</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-5">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div id="error" class="form-text">
+                <?php
+                if (isset($error)) {
+                    echo $error;
+                }
+                ?>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Sign Up"></input>
+            <a class="btn btn-outline-secondary" href="signIn.php">Already have an account?</a>
+        </form>
     </main>
 
 </body>
