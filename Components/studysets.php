@@ -20,6 +20,7 @@ $studysets = getStudysets($_SESSION['userID']);
                         <a href="#" class="btn btn-outline-primary">Edit</a>
                     </div>
                     <div>
+                        
                         <a href="#" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
