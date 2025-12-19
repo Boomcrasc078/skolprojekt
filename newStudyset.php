@@ -6,9 +6,10 @@ require 'Components/studysetHandler.php';
 
 $studysetID = createStudyset(new Studyset($_SESSION['userID'], "New Studyset"));
 
-$studysetURL = find("studysets", "studysetID", $studysetID);
+$studysetURL = find("studysets", "studysetID", $studysetID)->fetch_assoc()['studysetURL'];
 
-header("Location: studyset.php?studyset='$studysetURL'");
+$_GET['studyset'] = $studysetID;
+
 exit();
 
 ?>
