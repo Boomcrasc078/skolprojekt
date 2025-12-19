@@ -1,7 +1,3 @@
-<?php
-$studysets = getStudysets($_SESSION['userID']);
-?>
-
 <div class="container">
     <h2>Your Studysets</h2>
     <div class="mt-3">
