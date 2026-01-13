@@ -78,7 +78,11 @@ function getTest()
     <main class="container my-4" style="padding-inline: 1rem;">
         <?php
         getStudyset();
-        getTest();
+        if (isset($_GET['edit'])) {
+            include 'Studyset/edit.php';
+        } else {
+            getTest();
+        }
         ?>
     </main>
 

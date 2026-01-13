@@ -1,6 +1,12 @@
+<?php
+require_once __DIR__ . '/../Components/termsHandler.php';
+$data = get_terms_and_file($studyset);
+$terms = $data['terms'] ?? [];
+?>
+
 <header>
-    <h1><?php echo $studyset['name']; ?></h1>
-    <p><?php echo $studyset['description']; ?></p>
+    <h1><?php echo htmlspecialchars($studyset['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?></h1>
+    <p><?php echo htmlspecialchars($studyset['description'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 </header>
 
 <!--Studying Modes-->
@@ -16,23 +22,25 @@
     <table class="table" style="table-layout: auto;">
         <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Term</th>
                 <th scope="col">Definition</th>
-                <th scope="col" style="width: 0;"></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-
-                <th scope="row">1</th>
-                <td>Definition 1</td>
-                <td><a class="btn btn-secondary" href="">Edit</a></td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Definition 2</td>
-                <td><a class="btn btn-secondary" href="">Edit</a></td>
-            </tr>
+            <?php if (empty($terms)): ?>
+                <tr>
+                    <td colspan="3">No terms yet.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($terms as $i => $t): ?>
+                    <tr>
+                        <th scope="row"><?php echo $i + 1; ?></th>
+                        <td><?php echo htmlspecialchars($t['term'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                        <td><?php echo htmlspecialchars($t['definition'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

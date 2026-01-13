@@ -13,7 +13,7 @@
                 <div class="card-footer d-flex justify-content-between g-5">
                     <div>
                         <a href="studyset.php?studyset=<?php echo $studyset['studysetURL']?>" class="btn btn-primary">Learn</a>
-                        <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-primary">Edit</a>
+                        <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>&edit=true" class="btn btn-outline-primary">Edit</a>
                     </div>
                     <div>
                         <a href="Studyset/delete.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-danger">Delete</a>
