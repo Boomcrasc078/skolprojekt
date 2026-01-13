@@ -16,8 +16,7 @@
                         <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-primary">Edit</a>
                     </div>
                     <div>
-                        
-                        <a href="deleteStudyset.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-danger">Delete</a>
+                        <a href="Studyset/delete.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
             </div>
