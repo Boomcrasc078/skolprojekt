@@ -1,14 +1,14 @@
 <header>
-    <h1>Name of Study Set</h1>
-    <p>Description of Study Set</p>
+    <h1><?php echo $studyset['name']; ?></h1>
+    <p><?php echo $studyset['description']; ?></p>
 </header>
 
 <!--Studying Modes-->
 <div class="d-flex gap-4 my-4 flex-wrap">
-    <a class="btn btn-primary" href="?test=flashcards">Flashcards</a>
-    <a class="btn btn-primary" href="?test=quiz">Quiz</a>
-    <a class="btn btn-primary" href="?test=write">Write</a>
-    <a class="btn btn-primary" href="?test=combined">Combined</a>
+    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=flashcards">Flashcards</a>
+    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=quiz">Quiz</a>
+    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=write">Write</a>
+    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=combined">Combined</a>
 </div>
 
 <!--Terms and Definitions-->

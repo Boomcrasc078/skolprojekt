@@ -5,6 +5,41 @@ $studysets = getStudysets($_SESSION['userID']);
 ?>
 
 <style>
+    .no-studysets {
+        width: 95% !important;
+    }
+
+    @media(max-width: 300px) {
+        .no-studysets {
+            word-wrap: break-word !important;
+        }
+    }
+
+    @media(min-width: 403px) {
+        .no-studysets {
+            width: 90% !important
+        }
+    }
+
+    @media(min-width: 459px) {
+        .no-studysets {
+            width: 80% !important
+        }
+    }
+
+    @media(min-width: 525px) {
+        .no-studysets {
+            width: 70% !important
+        }
+    }
+
+    @media(min-width: 800px) {
+        .no-studysets {
+            width: 50% !important
+        }
+    }
+
+
     @media(max-width: 540px) {
         .top-section {
             flex-direction: column;
@@ -61,7 +96,7 @@ $studysets = getStudysets($_SESSION['userID']);
 
         <!--No Studysets-->
         <div
-            class="position-absolute top-50 start-50 translate-middle text-center border rounded-5 p-5 shadow w-50 bg-body-tertiary">
+            class="no-studysets container position-absolute top-50 start-50 translate-middle text-center border rounded-5 p-5 shadow bg-body-tertiary">
             <h1>Hi <?php echo $user->username ?>!</h1>
             <h2>It seems like you don't have any studysets.</h2>
             <h4 class="mt-4 mb-3">Do you wish to create one?</h4>

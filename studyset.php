@@ -1,3 +1,61 @@
+<?php
+require 'Components/databaseConnection.php';
+require 'Components/userHandler.php';
+requireUser();
+require 'Components/studysetHandler.php';
+$studysetURL;
+$studyset;
+function getStudyset()
+{
+    global $studysetURL, $studyset;
+    $studysetURL = isset($_GET['studyset']) ? $_GET['studyset'] : null;
+    if ($studysetURL === null) {
+        header("Location: index.php");
+        exit();
+    }
+    try {
+        $studyset = find("studysets", "studysetURL", $studysetURL)->fetch_assoc();
+    } catch (Exception $e) {
+        header("Location: index.php");
+        exit();
+    }
+}
+
+// function rememberLatestStudyset(){
+//     setcookie("latest_studyset", $studyset['studysetID'], time() + (86400 * 30), "/");
+// }
+
+
+function getTest()
+{
+    global $studyset, $studysetURL;
+    if (!isset($_GET['test'])) {
+        include __DIR__ . '/Studyset/summary.php';
+        return;
+    }
+    $test = $_GET['test'];
+
+    switch ($test) {
+        case 'flashcards':
+            include __DIR__ . '/Studyset/flashcards.php';
+            break;
+        case 'quiz':
+            include __DIR__ . '/Studyset/quiz.php';
+            break;
+        case 'write':
+            include __DIR__ . '/Studyset/write.php';
+            break;
+        case 'combined':
+            include __DIR__ . '/Studyset/combined.php';
+            break;
+        default:
+            include __DIR__ . '/Studyset/summary.php';
+            break;
+    }
+}
+
+?>
+
 <!doctype html>
 
 <head>
@@ -19,34 +77,8 @@
 
     <main class="container my-4" style="padding-inline: 1rem;">
         <?php
-        function openTest()
-        {
-            if (!isset($_GET['test'])) {
-                include 'Studyset/summary.php';
-                return;
-            }
-            $test = $_GET['test'];
-
-            switch ($test) {
-                case 'flashcards':
-                    include 'Studyset/flashcards.php';
-                    break;
-                case 'quiz':
-                    include 'Studyset/quiz.php';
-                    break;
-                case 'write':
-                    include 'Studyset/write.php';
-                    break;
-                case 'combined':
-                    include 'Studyset/combined.php';
-                    break;
-                default:
-                    include 'Studyset/summary.php';
-                    break;
-            }
-        }
-
-        openTest();
+        getStudyset();
+        getTest();
         ?>
     </main>
 
