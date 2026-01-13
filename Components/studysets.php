@@ -12,12 +12,12 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between g-5">
                     <div>
-                        <a href="#" class="btn btn-primary">Learn</a>
-                        <a href="#" class="btn btn-outline-primary">Edit</a>
+                        <a href="studyset.php?studyset=<?php echo $studyset['studysetURL']?>" class="btn btn-primary">Learn</a>
+                        <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-primary">Edit</a>
                     </div>
                     <div>
                         
-                        <a href="#" class="btn btn-outline-danger">Delete</a>
+                        <a href="deleteStudyset.php?studyset=<?php echo $studyset['studysetURL'] ?>" class="btn btn-outline-danger">Delete</a>
                     </div>
                 </div>
             </div>

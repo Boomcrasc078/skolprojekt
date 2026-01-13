@@ -71,4 +71,12 @@ function createStudyset(Studyset $studyset)
         return "Error: " . $exception->getMessage();
     }
 }
+
+function deleteStudyset(int $studysetID){
+    try{
+        $stmt = query("")
+    }catch(Exception $exception){
+        return "Error: " . $exception->getMessage();
+    }
+}
 ?>

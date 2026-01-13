@@ -8,8 +8,8 @@ $studysetID = createStudyset(new Studyset($_SESSION['userID'], "New Studyset"));
 
 $studysetURL = find("studysets", "studysetID", $studysetID)->fetch_assoc()['studysetURL'];
 
-$_GET['studyset'] = $studysetID;
-
+header('Location: studyset.php?studyset='.$studysetURL);
 exit();
+
 
 ?>

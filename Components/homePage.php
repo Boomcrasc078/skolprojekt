@@ -52,7 +52,7 @@ $studysets = getStudysets($_SESSION['userID']);
         </div>
 
         <!--Studysets-->
-        <div class="border rounded-5 p-5 mt-3 shadow bg-body-tertiary">
+        <div class="border rounded-5 p-3 pt-4 mt-3 shadow bg-body-tertiary">
             <?php include 'Components/studysets.php'; ?>
         </div>
         <?php
