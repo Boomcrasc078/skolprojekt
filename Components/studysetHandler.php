@@ -72,11 +72,17 @@ function createStudyset(Studyset $studyset)
     }
 }
 
-// function deleteStudyset(int $studysetID){
-//     try{
-//         $stmt = query("")
-//     }catch(Exception $exception){
-//         return "Error: " . $exception->getMessage();
-//     }
-// }
+function deleteStudyset(int $studysetID)
+{
+    try {
+        $stmt = query("DELETE FROM studysets WHERE studysetID = ?");
+        $stmt->bind_param("i", $studysetID);
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
+    } catch (Exception $exception) {
+        return "Error: " . $exception->getMessage();
+    }
+}
 ?>

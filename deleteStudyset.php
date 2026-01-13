@@ -5,7 +5,9 @@ requireUser();
 require 'Components/studysetHandler.php';
 
 $studysetURL = $_GET['studyset'];
-$studyset = find('STUDYSETS', 'studysetURL', $studysetURL);
-
+$studyset = find('studysets', 'studysetURL', $studysetURL)->fetch_assoc();
+deleteStudyset($studyset['studysetID']);
+header("Location: index.php");
+exit();
 
 ?>
