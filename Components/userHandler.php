@@ -1,15 +1,14 @@
 <?php
-session_start();
 $user = getUser();
 
-
-
-function getUser(){
+function getUser()
+{
     if (!isset($_SESSION['userID'])) {
         return;
     }
     $userID = $_SESSION['userID'];
-    $foundUser = find("users", "userID", $userID);
+    $foundUsers = find("users", "userID", $userID);
+    $foundUser = $foundUsers->fetch_assoc();
 
     if ($foundUser == null) {
         $_SESSION['userID'] = null;
@@ -18,6 +17,14 @@ function getUser(){
 
     $user = new User($foundUser['username'], $foundUser['password']);
     return $user;
+}
+
+function requireUser()
+{
+    if (!isset($_SESSION['userID'])) {
+        header("Location: signIn.php");
+        exit();
+    }
 }
 
 class User
@@ -32,51 +39,19 @@ class User
     }
 }
 
-function connectToDatabase()
-{
-    $serverName = "localhost";
-    $serverUsername = "root";
-    $serverPassword = "";
-
-    $databaseName = "QUIS";
-
-    $connection = new mysqli($serverName, $serverUsername, $serverPassword, $databaseName);
-
-    if ($connection->connect_errno) {
-        throw new Exception('Database connection failed: ' . $connection->connect_error);
-    }
-
-    return $connection;
-}
-
-function query(mysqli $connection, string $query)
-{
-
-    $stmt = $connection->prepare($query);
-
-    if ($stmt === false) {
-        throw new Exception('Prepare failed: ' . $connection->error);
-    }
-
-    return $stmt;
-}
-
-
-
 function createUser(User $user)
 {
     try {
-        $connection = connectToDatabase();
+        global $databaseConnection;
         $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
 
-        $stmt = query($connection, "INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt = query( "INSERT INTO users (username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $user->username, $hashedPassword);
         $stmt->execute();
 
-        $userID = $connection->insert_id;
+        $userID = $databaseConnection->insert_id;
 
         $stmt->close();
-        $connection->close();
 
         return $userID;
     } catch (Exception $exception) {
@@ -84,35 +59,14 @@ function createUser(User $user)
     }
 }
 
-function find(string $table, string $column, string $data)
-{
-    try {
-        $connection = connectToDatabase();
-
-        $stmt = query($connection, "SELECT * FROM $table WHERE $column=?");
-        $stmt->bind_param("s", $data);
-        $stmt->execute();
-
-        $result = $stmt->get_result();
-        $data = $result ? $result->fetch_assoc() : null;
-
-        $stmt->close();
-        $connection->close();
-
-        return $data;
-
-    } catch (Exception $exception) {
-        return "Error: " . $exception->getMessage();
-    }
-
-}
-
 function signUp($username, $password)
 {
     try {
         $user = new User($username, $password);
+        $foundUsers = find("users", "username", $user->username);
+        $foundUser = $foundUsers->fetch_assoc();
 
-        if (find("users", "username", $user->username)) {
+        if ($foundUser != null & $foundUser != false) {
             return "$username have already been used.";
         }
 
@@ -132,14 +86,14 @@ function signIn($username, $password)
 {
     try {
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $foundUser = find("users", "username", $username);
+        $foundUsers = find("users", "username", $username);
+        $foundUser = $foundUsers->fetch_assoc();
 
         if ($foundUser == null) {
             return "This user does not exist.";
         }
 
-        if ($foundUser['password'] != $hashedPassword) {
+        if (!password_verify($password, $foundUser['password'])) {
             return "Password is incorrect.";
         }
 
@@ -151,5 +105,13 @@ function signIn($username, $password)
     } catch (Exception $exception) {
         return "Error: " . $exception->getMessage();
     }
+}
+
+function validate($input)
+{
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
 }
 ?>
