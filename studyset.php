@@ -5,7 +5,7 @@ requireUser();
 require 'Components/studysetHandler.php';
 $studysetURL;
 $studyset;
-function getStudyset()
+function getFlashcard()
 {
     global $studysetURL, $studyset;
     $studysetURL = isset($_GET['studyset']) ? $_GET['studyset'] : null;
@@ -77,7 +77,7 @@ function getTest()
 
     <main class="container my-4" style="padding-inline: 1rem;">
         <?php
-        getStudyset();
+        getFlashcard();
         if (isset($_GET['edit'])) {
             include 'Studyset/edit.php';
         } else {

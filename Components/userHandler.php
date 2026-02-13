@@ -45,7 +45,7 @@ function createUser(User $user)
         global $databaseConnection;
         $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
 
-        $stmt = query( "INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt = query("INSERT INTO users (username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $user->username, $hashedPassword);
         $stmt->execute();
 
@@ -113,5 +113,101 @@ function validate($input)
     $input = stripslashes($input);
     $input = htmlspecialchars($input);
     return $input;
+}
+
+function changeUsername($newUsername)
+{
+    $newUsername = validate($newUsername);
+
+    if (empty($newUsername)) {
+        return "Username cannot be empty.";
+    }
+
+    // Check if username already exists
+    $foundUsers = find("users", "username", $newUsername);
+    $foundUser = $foundUsers->fetch_assoc();
+
+    if ($foundUser != null && $foundUser != false) {
+        return "Username is already taken.";
+    }
+
+    try {
+        $userID = $_SESSION['userID'];
+        $stmt = query("UPDATE users SET username = ? WHERE userID = ?");
+        $stmt->bind_param("si", $newUsername, $userID);
+        $stmt->execute();
+        $stmt->close();
+
+        return "success";
+    } catch (Exception $exception) {
+        return "Error updating username: " . $exception->getMessage();
+    }
+}
+
+function changePassword($currentPassword, $newPassword, $confirmPassword)
+{
+    $user = getUser();
+
+    if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+        return "All password fields are required.";
+    }
+
+    if (!password_verify($currentPassword, $user->password)) {
+        return "Current password is incorrect.";
+    }
+
+    if ($newPassword !== $confirmPassword) {
+        return "New passwords do not match.";
+    }
+
+    if (strlen($newPassword) < 6) {
+        return "New password must be at least 6 characters long.";
+    }
+
+    try {
+        $userID = $_SESSION['userID'];
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt = query("UPDATE users SET password = ? WHERE userID = ?");
+        $stmt->bind_param("si", $hashedPassword, $userID);
+        $stmt->execute();
+        $stmt->close();
+
+        return "success";
+    } catch (Exception $exception) {
+        return "Error updating password: " . $exception->getMessage();
+    }
+}
+
+function deleteAccount()
+{
+    try {
+        $userID = $_SESSION['userID'];
+
+        // Delete all study sets associated with the user
+        $stmt = query("DELETE FROM studysets WHERE userID = ?");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $stmt->close();
+
+        // Delete the user
+        $stmt = query("DELETE FROM users WHERE userID = ?");
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $stmt->close();
+
+        // Clear session and redirect to index
+        $_SESSION['userID'] = null;
+        header("Location: index.php");
+        exit();
+    } catch (Exception $exception) {
+        return "Error deleting account: " . $exception->getMessage();
+    }
+}
+
+function signOut()
+{
+    $_SESSION['userID'] = null;
+    header("Location: index.php");
+    exit();
 }
 ?>

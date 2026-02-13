@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // update $terms so the user sees their entered values
         $terms = $newTerms;
     } else {
-        header('Location: ' . $_SERVER['REQUEST_URI']);
+        header('Location: studyset.php?studyset=' . urlencode($studyset['studysetURL']));
         exit;
     }
 }
