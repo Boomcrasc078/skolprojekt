@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../Components/termsHandler.php';
-$data = get_terms_and_file($studyset);
-$terms = $data['terms'] ?? [];
+
+$terms = getTerms($studyset);
 ?>
 
 <header>

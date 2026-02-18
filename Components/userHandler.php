@@ -45,7 +45,7 @@ function createUser(User $user)
         global $databaseConnection;
         $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
 
-        $stmt = query("INSERT INTO users (username, password) VALUES (?, ?)");
+        $stmt = prepareQuery("INSERT INTO users (username, password) VALUES (?, ?)");
         $stmt->bind_param("ss", $user->username, $hashedPassword);
         $stmt->execute();
 
@@ -133,7 +133,7 @@ function changeUsername($newUsername)
 
     try {
         $userID = $_SESSION['userID'];
-        $stmt = query("UPDATE users SET username = ? WHERE userID = ?");
+        $stmt = prepareQuery("UPDATE users SET username = ? WHERE userID = ?");
         $stmt->bind_param("si", $newUsername, $userID);
         $stmt->execute();
         $stmt->close();
@@ -167,7 +167,7 @@ function changePassword($currentPassword, $newPassword, $confirmPassword)
     try {
         $userID = $_SESSION['userID'];
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-        $stmt = query("UPDATE users SET password = ? WHERE userID = ?");
+        $stmt = prepareQuery("UPDATE users SET password = ? WHERE userID = ?");
         $stmt->bind_param("si", $hashedPassword, $userID);
         $stmt->execute();
         $stmt->close();
@@ -184,13 +184,13 @@ function deleteAccount()
         $userID = $_SESSION['userID'];
 
         // Delete all study sets associated with the user
-        $stmt = query("DELETE FROM studysets WHERE userID = ?");
+        $stmt = prepareQuery("DELETE FROM studysets WHERE userID = ?");
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->close();
 
         // Delete the user
-        $stmt = query("DELETE FROM users WHERE userID = ?");
+        $stmt = prepareQuery("DELETE FROM users WHERE userID = ?");
         $stmt->bind_param("i", $userID);
         $stmt->execute();
         $stmt->close();

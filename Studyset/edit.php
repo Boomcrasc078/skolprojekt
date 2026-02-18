@@ -1,41 +1,42 @@
 <?php
 require_once __DIR__ . '/../Components/termsHandler.php';
 
-$terms = [];
-$termsFile = null;
-$data = get_terms_and_file($studyset);
-$terms = $data['terms'];
-$termsFile = $data['file'];
-// save error message (if any) to display in UI
+$terms = getTerms($studyset);
 $saveError = null;
+
+function createTermsArray($termsIn, $defsIn)
+{
+    $count = max(count($termsIn), count($defsIn));
+
+    for ($i = 0; $i < $count; $i++) {
+        
+        $term = isset($termsIn[$i]) ? trim($termsIn[$i]) : '';
+        $def = isset($defsIn[$i]) ? trim($defsIn[$i]) : '';
+
+        if ($term == '') {
+            continue;
+        }
+
+        $newTerms[] = ['term' => $term, 'definition' => $def];
+    }
+    return $newTerms;
+}
 
 // Handle saving terms via POST (inline table submit)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // collect terms from term[] and definition[] arrays (ensures indices match)
     $termsIn = $_POST['term'] ?? [];
     $defsIn = $_POST['definition'] ?? [];
-    $newTerms = [];
-    $count = max(count($termsIn), count($defsIn));
-    for ($i = 0; $i < $count; $i++) {
-        $term = isset($termsIn[$i]) ? trim($termsIn[$i]) : '';
-        $def = isset($defsIn[$i]) ? trim($defsIn[$i]) : '';
-        if ($term !== '')
-            $newTerms[] = ['term' => $term, 'definition' => $def];
-    }
+    $newTerms = createTermsArray($termsIn, $defsIn);
 
     $name = trim($_POST['studyset_name'] ?? '');
     $description = trim($_POST['studyset_description'] ?? '');
 
     // save using handler (will update file + DB)
     $result = save_terms($studyset, $newTerms, $name, $description);
-    if (!empty($result['error'])) {
-        $saveError = $result['error'];
-        // update $terms so the user sees their entered values
-        $terms = $newTerms;
-    } else {
-        header('Location: studyset.php?studyset=' . urlencode($studyset['studysetURL']));
-        exit;
-    }
+    header('Location: studyset.php?studyset=' . urlencode($studyset['studysetURL']));
+    exit;
+
 }
 ?>
 

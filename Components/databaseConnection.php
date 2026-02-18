@@ -19,7 +19,7 @@ function connectToDatabase()
     return $connection;
 }
 
-function query(string $query)
+function prepareQuery(string $query)
 {
     global $databaseConnection;
     $stmt = $databaseConnection->prepare($query);
@@ -34,7 +34,7 @@ function query(string $query)
 function find(string $table, string $column, string $data)
 {
     try {
-        $stmt = query("SELECT * FROM $table WHERE $column=?");
+        $stmt = prepareQuery("SELECT * FROM $table WHERE $column=?");
         $stmt->bind_param("s", $data);
         $stmt->execute();
 
