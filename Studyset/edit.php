@@ -6,8 +6,8 @@ $saveError = null;
 
 function createTermsArray($termsIn, $defsIn)
 {
+    $newTerms = [];
     $count = max(count($termsIn), count($defsIn));
-
     for ($i = 0; $i < $count; $i++) {
         
         $term = isset($termsIn[$i]) ? trim($termsIn[$i]) : '';

@@ -1,20 +1,28 @@
 <?php
 function getTerms($studyset)
 {
-    try{
+    try {
         $terms = [];
+
+        if (empty($studyset['terms'])) {
+            return $terms;
+        }
 
         $decoded = json_decode($studyset['terms'], true);
 
         $terms = $decoded;
         return $terms;
-    }catch(Exception $e){
+    } catch (Exception $e) {
         return $e->getMessage();
     }
 }
 
 function save_terms($studyset, $termsArray, $name = null, $description = null)
 {
+    if(count($termsArray) == 0){
+        return 'No terms to save';
+    }
+
     $json = json_encode($termsArray, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     if ($json === false) {
         return ['path' => null, 'error' => 'json_encode failed: ' . json_last_error_msg()];

@@ -210,4 +210,14 @@ function signOut()
     header("Location: index.php");
     exit();
 }
+
+function addUserData($data){
+    $userData = json_decode(get, true) ?? [];
+    $userData = array_merge($userData, $data);
+    $json = json_encode($userData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $stmt = prepareQuery("UPDATE users SET data = ? WHERE userID = ?");
+    $stmt->bind_param("si", $json, $_SESSION['userID']);
+    $stmt->execute();
+    $stmt->close();
+}
 ?>
