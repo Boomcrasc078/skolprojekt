@@ -11,6 +11,9 @@
           <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) === 'index.php') ? 'active' : '' ?>"
             aria-current="page" href="index.php">Home</a>
         </li>
+        <a class="nav-link <?php echo (basename($_SERVER['PHP_SELF']) === 'profile.php') ? 'active' : '' ?>"
+          aria-current="page" href="profile.php">Profile</a>
+        </li>
 
         <!--Theme Dropdown-->
         <li class="nav-item dropdown">

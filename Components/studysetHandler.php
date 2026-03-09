@@ -58,7 +58,7 @@ function createStudyset(Studyset $studyset)
     try {
         global $databaseConnection;
         $url = createNewURL();
-        $stmt = query("INSERT INTO studysets (userID, name, studysetURL) VALUES (?, ?, ?)");
+        $stmt = prepareQuery("INSERT INTO studysets (userID, name, studysetURL) VALUES (?, ?, ?)");
         $stmt->bind_param("iss", $studyset->userID, $studyset->name, $url);
         $stmt->execute();
 
@@ -75,7 +75,7 @@ function createStudyset(Studyset $studyset)
 function deleteStudyset(int $studysetID)
 {
     try {
-        $stmt = query("DELETE FROM studysets WHERE studysetID = ?");
+        $stmt = prepareQuery("DELETE FROM studysets WHERE studysetID = ?");
         $stmt->bind_param("i", $studysetID);
         $result = $stmt->execute();
         $stmt->close();

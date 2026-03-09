@@ -100,7 +100,7 @@ $studysets = getStudysets($_SESSION['userID']);
             <h1>Hi <?php echo $user->username ?>!</h1>
             <h2>It seems like you don't have any studysets.</h2>
             <h4 class="mt-4 mb-3">Do you wish to create one?</h4>
-            <a href="newStudyset.php" class="btn btn-primary btn-lg rounded rounded-pill shadow">Create A Studyset</a>
+            <a href="Studyset/new.php" class="btn btn-primary btn-lg rounded rounded-pill shadow">Create A Studyset</a>
         </div>
 
     <?php } ?>
