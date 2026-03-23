@@ -2,8 +2,11 @@
 
 
 
-    <div class="px-4 py-5 my-5 text-center"> <img class="d-block mx-auto mb-4"
-            src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <div class="px-4 py-5 my-5 text-center"> <svg class="d-block mx-auto mb-4" xmlns="http://www.w3.org/2000/svg"
+            width="150" height="150" fill="currentColor" viewBox="0 0 16 16">
+            <path
+                d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16M1 8a7 7 0 0 0 7 7 3.5 3.5 0 1 0 0-7 3.5 3.5 0 1 1 0-7 7 7 0 0 0-7 7" />
+        </svg>
         <h1 class="display-5 fw-bold text-body-emphasis">Quis, Study rehearsal made easy</h1>
         <div class="col-lg-6 mx-auto">
 
@@ -24,47 +27,30 @@
     <div class="container px-4 py-5" id="featured-3">
         <h2 class="pb-2 border-bottom">Features</h2>
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-            <div class="feature col">
-                <div
-                    class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                    <svg class="bi" width="1em" height="1em" aria-hidden="true">
-                        <use xlink:href="#collection"></use>
-                    </svg>
-                </div>
-                <h3 class="fs-2 text-body-emphasis">Flashcards</h3>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence
-                    and probably just keep going until we run out of words.</p> <a href="#" class="icon-link">
-                    Call to action
+            <div class="feature col"
+                style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Components/Images/Flashcards.png'); background-size: cover; background-repeat: no-repeat; background-position: center; padding: 1rem; color: white; border-radius: 0.5rem;">
+                <h3 class="fs-2" style="color: #007bff;">Flashcards</h3>
+                <p>Write your own flashcards and study materials. Place a question on the front and an answer on the
+                    back!</p> <a href="Studyset/flashcards.php" class="icon-link">
+                    Head to Flashcards
                     <svg class="bi" aria-hidden="true">
                         <use xlink:href="#chevron-right"></use>
                     </svg> </a>
             </div>
-            <div class="feature col">
-                <div
-                    class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                    <svg class="bi" width="1em" height="1em" aria-hidden="true">
-                        <use xlink:href="#people-circle"></use>
-                    </svg>
-                </div>
-                <h3 class="fs-2 text-body-emphasis">Study Sets</h3>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence
-                    and probably just keep going until we run out of words.</p> <a href="#" class="icon-link">
-                    Call to action
+            <div class="feature col"
+                style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Components/Images/AlternateQuestions.png'); background-size: cover; background-repeat: no-repeat; background-position: center; padding: 1rem; color: white; border-radius: 0.5rem;">
+                <h3 class="fs-2" style="color: #007bff;">Alternate Questions</h3>
+                <p>Create questions with four options and a correct answer.</p> <a href="#" class="icon-link">
+                    Head to Alternate Questions
                     <svg class="bi" aria-hidden="true">
                         <use xlink:href="#chevron-right"></use>
                     </svg> </a>
             </div>
-            <div class="feature col">
-                <div
-                    class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-                    <svg class="bi" width="1em" height="1em" aria-hidden="true">
-                        <use xlink:href="#toggles2"></use>
-                    </svg>
-                </div>
-                <h3 class="fs-2 text-body-emphasis">Featured title</h3>
-                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence
-                    and probably just keep going until we run out of words.</p> <a href="#" class="icon-link">
-                    Call to action
+            <div class="feature col"
+                style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Components/Images/Write.png'); background-size: cover; background-repeat: no-repeat; background-position: center; padding: 1rem; color: white; border-radius: 0.5rem;">
+                <h3 class="fs-2" style="color: #007bff;">Write</h3>
+                <p>Answer the given question with a short answer.</p> <a href="#" class="icon-link">
+                    Head to Write
                     <svg class="bi" aria-hidden="true">
                         <use xlink:href="#chevron-right"></use>
                     </svg> </a>
