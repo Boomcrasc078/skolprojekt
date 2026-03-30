@@ -140,7 +140,6 @@ foreach ($unknownCards as $idx) {
 ?>
 
 
-
 <div>
     <h1>Flashcards</h1>
     <h2 id="progressText"></h2>
@@ -149,7 +148,7 @@ foreach ($unknownCards as $idx) {
         <div id="progressbar" class="progress-bar" style="width: 0%"></div>
     </div>
 </div>
-<div id="flashcard-container">
+<div id="flashcard-container" style="display: none;">
     <br>
     <div id="flashcard" class="container-fluid flashcard btn bg-body-tertiary shadow rounded-5" onclick="flipCard()">
         <h1 id="flashcard-text">Term</h1>
@@ -163,9 +162,16 @@ foreach ($unknownCards as $idx) {
         </button>
     </div>
 </div>
-<div id="completionMessage" class="container text-center" style="display: none;">
-    <h1>Flashcards Complete!</h1>
-    <a href="studyset.php?studyset=<?php echo $studysetURL ?>" class="btn btn-primary">Back to Studyset</a>
+<div id="completionMessage" class="container text-center my-5" style="display: none;">
+    <h1 class="mb-4">Flashcards Complete!</h1>
+    <div class="d-flex flex-column gap-3">
+        <button class="btn btn-primary rounded rounded-pill" onclick="continueUnknown()">Continue studying unknown
+            cards</button>
+        <button class="btn btn-outline-primary rounded rounded-pill" onclick="restartFlashcards()">Restart
+            flashcards</button>
+        <a href="?studyset=<?php echo $studysetURL ?>&test=flashcards"
+            class="btn btn-outline-danger rounded rounded-pill">Exit flashcards</a>
+    </div>
 </div>
 
 
@@ -186,11 +192,16 @@ foreach ($unknownCards as $idx) {
 </style>
 
 <script>
+    const flashcardsElement = document.getElementById('flashcard-container');
+    const completionMessageElement = document.getElementById('completionMessage');
+
     const terms = <?php echo json_encode($flashTerms, JSON_UNESCAPED_UNICODE); ?>;
     let currentIndex = 0;
     let cardFlipped = false;
     updateCard();
     updateProgressBar(0);
+
+    flashcardsElement.style.display = 'block';
 
     function flipCard() {
         const card = document.getElementById('flashcard');
@@ -205,7 +216,7 @@ foreach ($unknownCards as $idx) {
 
     function updateCard() {
         const text = document.getElementById('flashcard-text');
-        text.innerHTML = cardFlipped ? terms[currentIndex].term : terms[currentIndex].definition;
+        text.innerHTML = cardFlipped ? terms[currentIndex].definition : terms[currentIndex].term;
     }
 
     function nextCard(knowCard) {
@@ -235,17 +246,20 @@ foreach ($unknownCards as $idx) {
 
     function flashcardsComplete() {
         updateProgressBar(100);
-        const container = document.getElementById('flashcard-container');
-        container.style.display = "none";
-
-        // reload page to show remaining unknown cards
-        setTimeout(() => {
-            location.reload();
-        }, 1500);
+        flashcardsElement.style.display = "none";
+        completionMessageElement.style.display = 'block';
     }
 
     function updateProgressBar(progress) {
         const progressBar = document.getElementById('progressbar');
         progressBar.style.width = `${progress}%`;
+    }
+
+    function restartFlashcards() {
+
+    }
+
+    function continueUnknown() {
+        location.reload();
     }
 </script>
