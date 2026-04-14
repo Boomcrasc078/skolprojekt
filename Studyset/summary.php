@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../Components/termsHandler.php';
+require_once __DIR__ . '/../Components/studysetHandler.php';
 
 $terms = getTerms($studyset);
 ?>
@@ -11,10 +12,18 @@ $terms = getTerms($studyset);
 
 <!--Studying Modes-->
 <div class="d-flex gap-4 my-4 flex-wrap">
-    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=flashcards">Flashcards</a>
-    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=quiz">Quiz</a>
-    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=write">Write</a>
-    <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=combined">Combined</a>
+    <?php if (isModeEnabled($studyset, 'flashcards')): ?>
+        <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=flashcards">Flashcards</a>
+    <?php endif; ?>
+    <?php if (isModeEnabled($studyset, 'quiz')): ?>
+        <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=quiz">Quiz</a>
+    <?php endif; ?>
+    <?php if (isModeEnabled($studyset, 'write')): ?>
+        <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=write">Write</a>
+    <?php endif; ?>
+    <?php if (isModeEnabled($studyset, 'combined') && (isModeEnabled($studyset, 'flashcards') || isModeEnabled($studyset, 'quiz') || isModeEnabled($studyset, 'write'))): ?>
+        <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=combined">Combined</a>
+    <?php endif; ?>
 </div>
 
 <!--Terms and Definitions-->

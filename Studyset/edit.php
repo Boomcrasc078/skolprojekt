@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../Components/termsHandler.php';
+require_once __DIR__ . '/../Components/studysetHandler.php';
 
 $terms = getTerms($studyset);
 $saveError = null;
@@ -9,7 +10,7 @@ function createTermsArray($termsIn, $defsIn)
     $newTerms = [];
     $count = max(count($termsIn), count($defsIn));
     for ($i = 0; $i < $count; $i++) {
-        
+
         $term = isset($termsIn[$i]) ? trim($termsIn[$i]) : '';
         $def = isset($defsIn[$i]) ? trim($defsIn[$i]) : '';
 
@@ -32,8 +33,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['studyset_name'] ?? '');
     $description = trim($_POST['studyset_description'] ?? '');
 
+    $modes = [
+        'enableFlashcards' => isset($_POST['enableFlashcards']) ? 1 : 0,
+        'enableQuiz' => isset($_POST['enableQuiz']) ? 1 : 0,
+        'enableWrite' => isset($_POST['enableWrite']) ? 1 : 0,
+        'enableCombined' => isset($_POST['enableCombined']) ? 1 : 0,
+    ];
+
     // save using handler (will update file + DB)
     $result = save_terms($studyset, $newTerms, $name, $description);
+    saveStudysetModes($studyset['studysetID'], $modes);
     header('Location: studyset.php?studyset=' . urlencode($studyset['studysetURL']));
     exit;
 
@@ -56,6 +65,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 placeholder="Description"
                 id="floatingTextarea"><?php echo htmlspecialchars($studyset['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
             <label for="floatingTextarea">Description</label>
+        </div>
+        <div class="mt-4 p-3 rounded shadow-sm bg-light">
+            <h2 class="h4">Enabled study modes</h2>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="enableFlashcards" id="enableFlashcards" <?php echo isModeEnabled($studyset, 'flashcards') ? 'checked' : ''; ?> value="1">
+                <label class="form-check-label" for="enableFlashcards">Flashcards</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="enableQuiz" id="enableQuiz" <?php echo isModeEnabled($studyset, 'quiz') ? 'checked' : ''; ?> value="1">
+                <label class="form-check-label" for="enableQuiz">Quiz</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="enableWrite" id="enableWrite" <?php echo isModeEnabled($studyset, 'write') ? 'checked' : ''; ?> value="1">
+                <label class="form-check-label" for="enableWrite">Write</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="enableCombined" id="enableCombined" <?php echo isModeEnabled($studyset, 'combined') ? 'checked' : ''; ?> value="1">
+                <label class="form-check-label" for="enableCombined">Combined mode</label>
+            </div>
         </div>
     </header>
     <div>

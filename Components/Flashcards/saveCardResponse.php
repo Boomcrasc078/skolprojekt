@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/databaseConnection.php';
+require_once __DIR__ . '/../databaseConnection.php';
 
 // this endpoint is called via fetch() from the flashcards page. it stores
 // whether the user knew the current card in the `userData` column of the users

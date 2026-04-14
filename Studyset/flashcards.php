@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../Components/termsHandler.php';
 require_once __DIR__ . '/../Components/databaseConnection.php';
 require_once __DIR__ . '/../Components/userHandler.php';
+require_once __DIR__ . '/../Components/studysetHandler.php';
 
 /**
  * redirect back to the studyset page when we can't show flashcards
@@ -116,6 +117,9 @@ function loadUserCardHistory($studysetId, array $terms): array
 
 $studysetName = $studyset['name'] ?? '';
 $studysetId = $studyset['studysetID'] ?? '';
+if (!isModeEnabled($studyset, 'flashcards')) {
+    exitFlashcards();
+}
 $terms = loadTerms($studyset);
 list($knownCards, $unknownCards) = loadUserCardHistory($studysetId, $terms);
 // only show cards the user hasn't marked known
@@ -165,12 +169,13 @@ foreach ($unknownCards as $idx) {
 <div id="completionMessage" class="container text-center my-5" style="display: none;">
     <h1 class="mb-4">Flashcards Complete!</h1>
     <div class="d-flex flex-column gap-3">
-        <button class="btn btn-primary rounded rounded-pill" onclick="continueUnknown()">Continue studying unknown
-            cards</button>
+        <button id="continueUnknownBtn" class="btn btn-primary rounded rounded-pill" onclick="continueUnknown()">
+            Continue studying unknown terms
+        </button>
         <button class="btn btn-outline-primary rounded rounded-pill" onclick="restartFlashcards()">Restart
             flashcards</button>
-        <a href="?studyset=<?php echo $studysetURL ?>&test=flashcards"
-            class="btn btn-outline-danger rounded rounded-pill">Exit flashcards</a>
+        <a href="?studyset=<?php echo $studysetURL ?>" class="btn btn-outline-danger rounded rounded-pill">Exit
+            flashcards</a>
     </div>
 </div>
 
@@ -198,6 +203,8 @@ foreach ($unknownCards as $idx) {
     const terms = <?php echo json_encode($flashTerms, JSON_UNESCAPED_UNICODE); ?>;
     let currentIndex = 0;
     let cardFlipped = false;
+    let hasUnknownCardsLeft = false;
+    const continueUnknownBtn = document.getElementById('continueUnknownBtn');
     updateCard();
     updateProgressBar(0);
 
@@ -221,11 +228,14 @@ foreach ($unknownCards as $idx) {
 
     function nextCard(knowCard) {
         const cardIndex = currentIndex;             // the card that was just shown
+        if (!knowCard) {
+            hasUnknownCardsLeft = true;
+        }
         currentIndex++;
         updateProgressBar((currentIndex / terms.length) * 100);
 
         // send to server for persistence (use original term index)
-        fetch('Components/saveCardResponse.php', {
+        fetch('Components/saveTestResponse.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'same-origin',
@@ -248,6 +258,7 @@ foreach ($unknownCards as $idx) {
         updateProgressBar(100);
         flashcardsElement.style.display = "none";
         completionMessageElement.style.display = 'block';
+        continueUnknownBtn.style.display = hasUnknownCardsLeft ? 'block' : 'none';
     }
 
     function updateProgressBar(progress) {
@@ -255,8 +266,22 @@ foreach ($unknownCards as $idx) {
         progressBar.style.width = `${progress}%`;
     }
 
-    function restartFlashcards() {
+    async function restartFlashcards() {
+        const res = await fetch('Components/restartTestResponse.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                studysetId: <?php echo json_encode($studysetId); ?>
+            })
+        });
 
+        if (!res.ok) {
+            console.error('Restart failed:', res.status, await res.text());
+            return;
+        }
+
+        location.reload();
     }
 
     function continueUnknown() {
