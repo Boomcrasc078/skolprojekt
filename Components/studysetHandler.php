@@ -83,8 +83,6 @@ function getStudysetModeField(string $mode): ?string
             return 'enableQuiz';
         case 'write':
             return 'enableWrite';
-        case 'combined':
-            return 'enableCombined';
         default:
             return null;
     }
@@ -127,7 +125,7 @@ function createStudyset(Studyset $studyset)
         $types = 'iss';
         $values = [$studyset->userID, $studyset->name, $url];
 
-        $modeFields = ['enableFlashcards', 'enableQuiz', 'enableWrite', 'enableCombined'];
+        $modeFields = ['enableFlashcards', 'enableQuiz', 'enableWrite'];
         foreach ($modeFields as $field) {
             if (hasStudysetField($field)) {
                 $fieldNames[] = $field;
@@ -153,7 +151,7 @@ function createStudyset(Studyset $studyset)
 
 function saveStudysetModes(int $studysetID, array $modes)
 {
-    $modeFields = ['enableFlashcards', 'enableQuiz', 'enableWrite', 'enableCombined'];
+    $modeFields = ['enableFlashcards', 'enableQuiz', 'enableWrite'];
     $available = [];
     foreach ($modeFields as $field) {
         if (hasStudysetField($field)) {

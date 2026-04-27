@@ -82,7 +82,6 @@ $studysets = getStudysets($_SESSION['userID']);
                 <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Flashcards</button>
                 <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Quiz</button>
                 <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Write</button>
-                <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Combined</button>
             </div>
         </div>
 

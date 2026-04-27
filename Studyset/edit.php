@@ -37,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'enableFlashcards' => isset($_POST['enableFlashcards']) ? 1 : 0,
         'enableQuiz' => isset($_POST['enableQuiz']) ? 1 : 0,
         'enableWrite' => isset($_POST['enableWrite']) ? 1 : 0,
-        'enableCombined' => isset($_POST['enableCombined']) ? 1 : 0,
     ];
 
     // save using handler (will update file + DB)
@@ -79,10 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="enableWrite" id="enableWrite" <?php echo isModeEnabled($studyset, 'write') ? 'checked' : ''; ?> value="1">
                 <label class="form-check-label" for="enableWrite">Write</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="enableCombined" id="enableCombined" <?php echo isModeEnabled($studyset, 'combined') ? 'checked' : ''; ?> value="1">
-                <label class="form-check-label" for="enableCombined">Combined mode</label>
             </div>
         </div>
     </header>

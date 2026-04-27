@@ -45,9 +45,6 @@ function getTest()
         case 'write':
             include __DIR__ . '/Studyset/write.php';
             break;
-        case 'combined':
-            include __DIR__ . '/Studyset/combined.php';
-            break;
         default:
             include __DIR__ . '/Studyset/summary.php';
             break;

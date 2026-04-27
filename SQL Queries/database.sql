@@ -21,6 +21,5 @@ CREATE TABLE STUDYSETS(
     enableFlashcards TINYINT(1) DEFAULT 1,
     enableQuiz TINYINT(1) DEFAULT 1,
     enableWrite TINYINT(1) DEFAULT 1,
-    enableCombined TINYINT(1) DEFAULT 1,
     CONSTRAINT fk_user FOREIGN KEY (userID) REFERENCES USERS (USERID)
 )ENGINE=InnoDB;

@@ -21,9 +21,6 @@ $terms = getTerms($studyset);
     <?php if (isModeEnabled($studyset, 'write')): ?>
         <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=write">Write</a>
     <?php endif; ?>
-    <?php if (isModeEnabled($studyset, 'combined') && (isModeEnabled($studyset, 'flashcards') || isModeEnabled($studyset, 'quiz') || isModeEnabled($studyset, 'write'))): ?>
-        <a class="btn btn-primary" href="?studyset=<?php echo $studysetURL ?>&test=combined">Combined</a>
-    <?php endif; ?>
 </div>
 
 <!--Terms and Definitions-->
