@@ -211,13 +211,50 @@ function signOut()
     exit();
 }
 
-function addUserData($data){
-    $userData = json_decode(get, true) ?? [];
+function setLastStudyset(int $studysetID)
+{
+    if (!isset($_SESSION['userID'])) {
+        return false;
+    }
+
+    try {
+        $userID = $_SESSION['userID'];
+        $stmt = prepareQuery('UPDATE users SET lastStudysetID = ? WHERE userID = ?');
+        $stmt->bind_param('ii', $studysetID, $userID);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    } catch (Exception $exception) {
+        return false;
+    }
+}
+
+function addUserData($data)
+{
+    if (!isset($_SESSION['userID'])) {
+        return false;
+    }
+
+    $userId = $_SESSION['userID'];
+    $stmt = prepareQuery('SELECT userData FROM users WHERE userID = ?');
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    $userData = json_decode($row['userData'] ?? '{}', true);
+    if (!is_array($userData)) {
+        $userData = [];
+    }
+
     $userData = array_merge($userData, $data);
     $json = json_encode($userData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    $stmt = prepareQuery("UPDATE users SET data = ? WHERE userID = ?");
-    $stmt->bind_param("si", $json, $_SESSION['userID']);
+    $stmt = prepareQuery('UPDATE users SET userData = ? WHERE userID = ?');
+    $stmt->bind_param('si', $json, $userId);
     $stmt->execute();
     $stmt->close();
+
+    return true;
 }
 ?>

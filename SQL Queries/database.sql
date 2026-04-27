@@ -7,7 +7,8 @@ CREATE TABLE USERS(
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    userData BLOB
+    userData BLOB,
+    lastStudysetID INT NULL
 )ENGINE=InnoDB;
 
 CREATE TABLE STUDYSETS(

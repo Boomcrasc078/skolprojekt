@@ -15,6 +15,11 @@ function getFlashcard()
     }
     try {
         $studyset = find("studysets", "studysetURL", $studysetURL)->fetch_assoc();
+        if (!$studyset) {
+            header("Location: index.php");
+            exit();
+        }
+        setLastStudyset($studyset['studysetID']);
     } catch (Exception $e) {
         header("Location: index.php");
         exit();

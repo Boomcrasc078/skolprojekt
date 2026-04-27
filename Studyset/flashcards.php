@@ -250,6 +250,9 @@ foreach ($unknownCards as $idx) {
             flashcardsComplete();
             return;
         }
+
+        cardFlipped = false;
+
         updateCard();
     }
 

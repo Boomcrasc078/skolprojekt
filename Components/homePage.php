@@ -1,7 +1,38 @@
-<?php require 'Components/studysetHandler.php'; ?>
-
 <?php
+require 'Components/studysetHandler.php';
+require 'Components/termsHandler.php';
+
 $studysets = getStudysets($_SESSION['userID']);
+$lastStudysetURL = null;
+$lastStudysetPreview = null;
+
+if (isset($_SESSION['userID'])) {
+    $stmt = prepareQuery('SELECT lastStudysetID FROM users WHERE userID = ?');
+    $stmt->bind_param('i', $_SESSION['userID']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+
+    if (!empty($row['lastStudysetID'])) {
+        $lastStudyset = find('studysets', 'studysetID', $row['lastStudysetID'])->fetch_assoc();
+        if ($lastStudyset) {
+            $lastStudysetURL = $lastStudyset['studysetURL'];
+            $terms = getTerms($lastStudyset);
+            if (!empty($terms) && isset($terms[0]['term'])) {
+                $lastStudysetPreview = $terms[0]['term'];
+            }
+        }
+    }
+
+    if ($lastStudysetURL === null && !empty($studysets)) {
+        $lastStudysetURL = $studysets[0]['studysetURL'];
+        $terms = getTerms($studysets[0]);
+        if (!empty($terms) && isset($terms[0]['term'])) {
+            $lastStudysetPreview = $terms[0]['term'];
+        }
+    }
+}
 ?>
 
 <style>
@@ -75,13 +106,26 @@ $studysets = getStudysets($_SESSION['userID']);
 
         <!--Top Section-->
         <h2>Continue where you left off.</h2>
-        <div class="top-section d-flex gap-5 my-3" style="height: 400px">
-            <div class="flashcard border rounded-5 p-5 shadow w-50 bg-body-tertiary">
+        <div class="top-section d-flex gap-5 my-3" style="height: 400px" >
+            <div
+                class="flashcard border rounded-5 p-5 shadow w-50 bg-body-tertiary d-flex align-items-center justify-content-center text-center">
+                <?php if ($lastStudysetPreview): ?>
+                    <div>
+                        <h2 class="fs-2 mb-3"><?php echo htmlspecialchars($lastStudysetPreview, ENT_QUOTES, 'UTF-8'); ?></h2>
+                    </div>
+                <?php else: ?>
+                    <div>
+
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="buttons d-flex flex-column justify-content-between w-50 py-3">
-                <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Flashcards</button>
-                <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Quiz</button>
-                <button class="btn btn-primary btn-lg rounded rounded-pill shadow">Write</button>
+                <a class="btn btn-primary btn-lg rounded rounded-pill shadow"
+                    href="<?php echo $lastStudysetURL ? 'studyset.php?studyset=' . urlencode($lastStudysetURL) . '&test=flashcards' : 'Studyset/new.php'; ?>">Flashcards</a>
+                <a class="btn btn-primary btn-lg rounded rounded-pill shadow"
+                    href="<?php echo $lastStudysetURL ? 'studyset.php?studyset=' . urlencode($lastStudysetURL) . '&test=quiz' : 'Studyset/new.php'; ?>">Quiz</a>
+                <a class="btn btn-primary btn-lg rounded rounded-pill shadow"
+                    href="<?php echo $lastStudysetURL ? 'studyset.php?studyset=' . urlencode($lastStudysetURL) . '&test=write' : 'Studyset/new.php'; ?>">Write</a>
             </div>
         </div>
 

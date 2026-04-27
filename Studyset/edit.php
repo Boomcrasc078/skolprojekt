@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 id="floatingTextarea"><?php echo htmlspecialchars($studyset['description'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
             <label for="floatingTextarea">Description</label>
         </div>
-        <div class="mt-4 p-3 rounded shadow-sm bg-light">
+        <div class="mt-4 p-3 rounded shadow-sm bg-body-tertiary">
             <h2 class="h4">Enabled study modes</h2>
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="enableFlashcards" id="enableFlashcards" <?php echo isModeEnabled($studyset, 'flashcards') ? 'checked' : ''; ?> value="1">

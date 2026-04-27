@@ -170,6 +170,8 @@ foreach ($questionIndices as $idx) {
         feedbackMessage.style.display = 'none';
         answerInput.value = '';
         answerInput.focus();
+
+
     }
 
     function handleSubmit() {
