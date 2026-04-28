@@ -87,12 +87,11 @@ if (isset($_SESSION['userID'])) {
             width: 100% !important;
             justify-content: space-around !important;
             flex-direction: row !important;
-            flex-wrap: wrap;
             gap: 0.5rem;
         }
 
-        .buttons>button {
-            flex-basis: 47% !important;
+        .buttons>a {
+            flex-basis: 30%;
         }
     }
 </style>
@@ -106,12 +105,12 @@ if (isset($_SESSION['userID'])) {
 
         <!--Top Section-->
         <h2>Continue where you left off.</h2>
-        <div class="top-section d-flex gap-5 my-3" style="height: 400px" >
+        <div class="top-section d-flex gap-5 my-3" style="height: 300px">
             <div
                 class="flashcard border rounded-5 p-5 shadow w-50 bg-body-tertiary d-flex align-items-center justify-content-center text-center">
                 <?php if ($lastStudysetPreview): ?>
                     <div>
-                        <h2 class="fs-2 mb-3"><?php echo htmlspecialchars($lastStudysetPreview, ENT_QUOTES, 'UTF-8'); ?></h2>
+                        <h2 class="fs-1 mb-3"><?php echo htmlspecialchars($lastStudysetPreview, ENT_QUOTES, 'UTF-8'); ?></h2>
                     </div>
                 <?php else: ?>
                     <div>

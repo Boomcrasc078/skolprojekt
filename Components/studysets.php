@@ -19,6 +19,8 @@
                             class="btn btn-primary">Learn</a>
                         <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>&edit=true"
                             class="btn btn-outline-primary">Edit</a>
+                        <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>&share=true"
+                            class="btn btn-outline-primary">Share</a>
                     </div>
                     <div>
                         <a href="Studyset/delete.php?studyset=<?php echo $studyset['studysetURL'] ?>"
