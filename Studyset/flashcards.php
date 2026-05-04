@@ -145,7 +145,7 @@ foreach ($unknownCards as $idx) {
 
 
 <div>
-    <h1>Flashcards</h1>
+    <h1><i class="bi bi-wallet2"></i> Flashcards</h1>
     <h2 id="progressText"></h2>
     <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
         aria-valuemax="100">
@@ -159,10 +159,10 @@ foreach ($unknownCards as $idx) {
     </div>
     <div class="flashcard-buttons d-flex justify-content-between my-4 gap-3 width-100">
         <button id="dontKnowBtn" class="btn btn-danger shadow rounded-5" onclick="nextCard(false)">
-            <h2>Don't Know</h2>
+            <h2><i class="bi bi-x-circle"></i> Don't Know</h2>
         </button>
         <button id="knowBtn" class="btn btn-success shadow rounded-5" onclick="nextCard(true)">
-            <h2>Know</h2>
+            <h2><i class="bi bi-check-square"></i> Know</h2>
         </button>
     </div>
 </div>

@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($saveError, ENT_QUOTES, 'UTF-8') ?></div>
     <?php endif; ?>
     <header class="mb-5">
-        <h1 class="display-1 mb-5">Edit Studyset</h1>
+        <h1 class="display-1 mb-5"><i class="bi bi-card-list"></i> Edit Studyset</h1>
         <div class="form-floating mb-3">
             <input name="studyset_name" type="text" class="form-control form-control-lg" placeholder="Studyset Name"
                 id="floatingInput" value="<?php echo htmlspecialchars($studyset['name'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
@@ -95,7 +95,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     value="<?php echo htmlspecialchars($t['definition'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                             </td>
                             <td>
-                                <button type="button" class="btn btn-sm btn-danger remove-row">Remove</button>
+                                <button type="button" class="btn btn-sm btn-danger remove-row rounded rounded-5"><i
+                                        class="bi bi-trash3"></i></button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -104,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
         <div class="d-flex gap-2 mt-3">
             <button id="addRow" type="button" class="btn btn-secondary">Add row</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i></button>
         </div>
     </div>
 </form>
@@ -132,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <th scope="row"></th>
                 <td><input name="term[]" class="form-control" value=""></td>
                 <td><input name="definition[]" class="form-control" value=""></td>
-                <td><button type="button" class="btn btn-sm btn-danger remove-row">Remove</button></td>
+                <td><button type="button" class="btn btn-sm btn-danger remove-row rounded rounded-5"><i class="bi bi-trash3"></i></button></td>
             `;
             tbody.appendChild(tr);
             updateIndexes();

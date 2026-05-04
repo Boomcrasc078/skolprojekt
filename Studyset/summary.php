@@ -13,7 +13,8 @@ $shareURL = sprintf(
 ?>
 
 <header>
-    <h1><?php echo htmlspecialchars($studyset['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?></h1>
+    <h1><i class="bi bi-clipboard"></i> <?php echo htmlspecialchars($studyset['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+    </h1>
     <p><?php echo htmlspecialchars($studyset['description'] ?? '', ENT_QUOTES, 'UTF-8'); ?></p>
 </header>
 

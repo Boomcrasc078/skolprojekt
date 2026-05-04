@@ -83,7 +83,7 @@ foreach ($questionIndices as $idx) {
 ?>
 
 <div>
-    <h1>Quiz</h1>
+    <h1><i class="bi bi-question-circle"></i> Quiz</h1>
     <p class="lead">
         <?php echo $unknownOnly ? 'Review only unknown terms from this study set.' : 'Answer multiple-choice questions to build a known/unknown terms memory list.'; ?>
     </p>
@@ -131,7 +131,8 @@ foreach ($questionIndices as $idx) {
 <script>
     const allQuizTerms = <?php echo json_encode($quizTerms, JSON_UNESCAPED_UNICODE); ?>;
     const allTermDefinitions = <?php echo json_encode(array_map(function ($item) {
-        return $item['definition']; }, $quizTerms), JSON_UNESCAPED_UNICODE); ?>;
+        return $item['definition'];
+    }, $quizTerms), JSON_UNESCAPED_UNICODE); ?>;
     const studysetId = <?php echo json_encode($studysetId); ?>;
     const studysetURL = <?php echo json_encode($studysetURL); ?>;
     const unknownOnly = <?php echo json_encode($unknownOnly); ?>;

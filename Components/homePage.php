@@ -104,7 +104,7 @@ if (isset($_SESSION['userID'])) {
         <h1 class="display-1">Welcome back <?php echo $user->username ?>!</h1>
 
         <!--Top Section-->
-        <h2>Continue where you left off.</h2>
+        <h2>Continue where you left off. <i class="bi bi-repeat"></i></h2>
         <div class="top-section d-flex gap-5 my-3" style="height: 300px">
             <div
                 class="flashcard border rounded-5 p-5 shadow w-50 bg-body-tertiary d-flex align-items-center justify-content-center text-center">

@@ -1,7 +1,8 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <h2>Your Studysets</h2>
-        <a class="btn btn-primary btn-lg rounded rounded-pill shadow" href="Studyset/new.php">New</a>
+        <a class="btn btn-primary btn-lg rounded rounded-pill shadow" href="Studyset/new.php"><i
+                class="bi bi-plus"></i></a>
     </div>
     <div class="mt-3">
         <?php foreach ($studysets as $studyset) { ?>
@@ -18,13 +19,13 @@
                         <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>"
                             class="btn btn-primary">Learn</a>
                         <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>&edit=true"
-                            class="btn btn-outline-primary">Edit</a>
+                            class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i></a>
                         <a href="studyset.php?studyset=<?php echo $studyset['studysetURL'] ?>&share=true"
-                            class="btn btn-outline-primary">Share</a>
+                            class="btn btn-outline-primary"><i class="bi bi-share"></i></a>
                     </div>
                     <div>
                         <a href="Studyset/delete.php?studyset=<?php echo $studyset['studysetURL'] ?>"
-                            class="btn btn-outline-danger">Delete</a>
+                            class="btn btn-outline-danger"><i class="bi bi-trash3"></i></a>
                     </div>
                 </div>
             </div>

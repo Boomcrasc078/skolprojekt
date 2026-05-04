@@ -83,7 +83,7 @@ foreach ($questionIndices as $idx) {
 ?>
 
 <div>
-    <h1>Write Quiz</h1>
+    <h1><i class="bi bi-pen"></i> Write Quiz</h1>
     <p class="lead">
         <?php echo $unknownOnly ? 'Practice only unknown terms.' : 'Type the definition for each term and save it as known or unknown.'; ?>
     </p>

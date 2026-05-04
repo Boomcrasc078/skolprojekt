@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>QUIS | SIGN IN</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -33,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <?php include "Components/navbar.php" ?>
 
     <main>
-        <form class="container p-5 position-absolute top-50 start-50 translate-middle z-n1 border rounded rounded-5 shadow bg-body-tertiary" method="post"
-            action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+        <form
+            class="container p-5 position-absolute top-50 start-50 translate-middle z-n1 border rounded rounded-5 shadow bg-body-tertiary"
+            method="post" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>">
             <h1 class="mb-3">Sign In</h1>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Username</label>
