@@ -104,8 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </tbody>
         </table>
         <div class="d-flex gap-2 mt-3">
-            <button id="addRow" type="button" class="btn btn-secondary">Add row</button>
-            <button type="submit" class="btn btn-primary"><i class="bi bi-download"></i></button>
+            <button id="addRow" type="button" class="btn btn-secondary">Add row <i class="bi bi-plus-lg"></i></button>
+            <button type="submit" class="btn btn-primary">Save Changes <i class="bi bi-download"></i></button>
         </div>
     </div>
 </form>
