@@ -35,7 +35,7 @@
                     </svg> </a>
             </div>
             <div class="feature col"
-                style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Components/Images/StudySets.png'); background-size: cover; background-repeat: no-repeat; background-position: center; padding: 1rem; color: white; border-radius: 0.5rem;">
+                style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('Components/Images/StudySets.png?v=2'); background-size: cover; background-repeat: no-repeat; background-position: center; padding: 1rem; color: white; border-radius: 0.5rem;">
                 <h3 class="fs-2" style="color: #007bff;">Studysets</h3>
                 <p>Create your own studysets to organize and review your learning materials.</p> <a href="signIn.php"
                     class="icon-link">
